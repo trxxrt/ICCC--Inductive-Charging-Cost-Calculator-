@@ -1,10 +1,4 @@
-#include <stdlib.h>
-#include <math.h>
-#include <glib.h>
-#include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>
-
-#include <osm-gps-map.h>
+#include "main.h"
 
 static OsmGpsMapSource_t opt_map_provider = OSM_GPS_MAP_SOURCE_OPENSTREETMAP;
 static gboolean opt_friendly_cache = FALSE;
@@ -24,8 +18,7 @@ static GOptionEntry entries[] =
 static GdkPixbuf *g_star_image = NULL;
 static OsmGpsMapImage *g_last_image = NULL;
 
-static gboolean
-on_button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+static gboolean on_button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 {
     OsmGpsMapPoint coord;
     float lat, lon;
@@ -70,8 +63,7 @@ on_button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer user_d
     return FALSE;
 }
 
-static gboolean
-on_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+static gboolean on_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 {
     float lat,lon;
     GtkEntry *entry = GTK_ENTRY(user_data);
@@ -85,8 +77,7 @@ on_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer user
     return FALSE;
 }
 
-static gboolean
-on_zoom_in_clicked_event (GtkWidget *widget, gpointer user_data)
+static gboolean on_zoom_in_clicked_event (GtkWidget *widget, gpointer user_data)
 {
     int zoom;
     OsmGpsMap *map = OSM_GPS_MAP(user_data);
@@ -95,8 +86,7 @@ on_zoom_in_clicked_event (GtkWidget *widget, gpointer user_data)
     return FALSE;
 }
 
-static gboolean
-on_zoom_out_clicked_event (GtkWidget *widget, gpointer user_data)
+static gboolean on_zoom_out_clicked_event (GtkWidget *widget, gpointer user_data)
 {
     int zoom;
     OsmGpsMap *map = OSM_GPS_MAP(user_data);
@@ -105,16 +95,14 @@ on_zoom_out_clicked_event (GtkWidget *widget, gpointer user_data)
     return FALSE;
 }
 
-static gboolean
-on_home_clicked_event (GtkWidget *widget, gpointer user_data)
+static gboolean on_home_clicked_event (GtkWidget *widget, gpointer user_data)
 {
     OsmGpsMap *map = OSM_GPS_MAP(user_data);
-    osm_gps_map_set_center_and_zoom(map, -43.5326,172.6362,12);
+    osm_gps_map_set_center_and_zoom(map, 48.858387,2.346268,12);
     return FALSE;
 }
 
-static gboolean
-on_cache_clicked_event (GtkWidget *widget, gpointer user_data)
+static gboolean on_cache_clicked_event (GtkWidget *widget, gpointer user_data)
 {
     OsmGpsMap *map = OSM_GPS_MAP(user_data);
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) {
@@ -129,8 +117,7 @@ on_cache_clicked_event (GtkWidget *widget, gpointer user_data)
     return FALSE;
 }
 
-static void
-on_tiles_queued_changed (OsmGpsMap *image, GParamSpec *pspec, gpointer user_data)
+static void on_tiles_queued_changed (OsmGpsMap *image, GParamSpec *pspec, gpointer user_data)
 {
     gchar *s;
     int tiles;
@@ -141,16 +128,14 @@ on_tiles_queued_changed (OsmGpsMap *image, GParamSpec *pspec, gpointer user_data
     g_free(s);
 }
 
-static void
-on_gps_alpha_changed (GtkAdjustment *adjustment, gpointer user_data)
+static void on_gps_alpha_changed (GtkAdjustment *adjustment, gpointer user_data)
 {
     OsmGpsMap *map = OSM_GPS_MAP(user_data);
     OsmGpsMapTrack *track = osm_gps_map_gps_get_track (map);
     float f = gtk_adjustment_get_value(adjustment);
     g_object_set (track, "alpha", f, NULL);}
 
-static void
-on_gps_width_changed (GtkAdjustment *adjustment, gpointer user_data)
+static void on_gps_width_changed (GtkAdjustment *adjustment, gpointer user_data)
 {
     OsmGpsMap *map = OSM_GPS_MAP(user_data);
     OsmGpsMapTrack *track = osm_gps_map_gps_get_track (map);
@@ -158,8 +143,7 @@ on_gps_width_changed (GtkAdjustment *adjustment, gpointer user_data)
     g_object_set (track, "line-width", f, NULL);
 }
 
-static void
-on_star_align_changed (GtkAdjustment *adjustment, gpointer user_data)
+static void on_star_align_changed (GtkAdjustment *adjustment, gpointer user_data)
 {
     const char *propname = user_data;
     float f = gtk_adjustment_get_value(adjustment);
@@ -167,8 +151,7 @@ on_star_align_changed (GtkAdjustment *adjustment, gpointer user_data)
         g_object_set (g_last_image, propname, f, NULL);
 }
 
-static void
-on_gps_color_changed (GtkColorButton *widget, gpointer user_data)
+static void on_gps_color_changed (GtkColorButton *widget, gpointer user_data)
 {
     GdkColor c;
     OsmGpsMapTrack *track = OSM_GPS_MAP_TRACK(user_data);
@@ -176,15 +159,13 @@ on_gps_color_changed (GtkColorButton *widget, gpointer user_data)
     g_object_set(track, "color", &c, NULL);
 }
 
-static void
-on_close (GtkWidget *widget, gpointer user_data)
+static void on_close (GtkWidget *widget, gpointer user_data)
 {
     gtk_widget_destroy(widget);
     gtk_main_quit();
 }
 
-static void
-usage (GOptionContext *context)
+static void usage (GOptionContext *context)
 {
     int i;
 
@@ -200,8 +181,7 @@ usage (GOptionContext *context)
     }
 }
 
-int
-main (int argc, char **argv)
+int main (int argc, char **argv)
 {
     GtkBuilder *builder;
     GtkWidget *widget;
@@ -372,6 +352,9 @@ main (int argc, char **argv)
     gtk_widget_show_all (widget);
 
     g_log_set_handler ("OsmGpsMap", G_LOG_LEVEL_MASK, g_log_default_handler, NULL);
+
+    osm_gps_map_set_center_and_zoom(map, 48.858387,2.346268,12);
+
     gtk_main ();
 
     return 0;

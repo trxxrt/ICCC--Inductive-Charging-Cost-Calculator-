@@ -1,11 +1,6 @@
 # depslib dependency file v1.0
-1321824401 source:/home/jc/dev/codeblocks/c/gtk/ICCC/main.c
-	<stdlib.h>
-	<math.h>
-	<glib.h>
-	<gtk/gtk.h>
-	<gdk/gdkkeysyms.h>
-	<osm-gps-map.h>
+1331158168 source:/home/jc/dev/codeblocks/c/gtk/ICCC/main.c
+	"main.h"
 
 1290175082 /usr/include/glib-2.0/glib.h
 	<glib/galloca.h>
@@ -2204,4 +2199,62 @@
 	<gdk/gdkkeysyms-compat.h>
 
 1285658984 /usr/include/gtk-2.0/gdk/gdkkeysyms-compat.h
+
+1321831616 /home/jc/dev/codeblocks/c/gtk/ICCC/main.h
+	<stdlib.h>
+	<math.h>
+	<glib.h>
+	<gtk/gtk.h>
+	<gdk/gdkkeysyms.h>
+	<osm-gps-map.h>
+
+1321823426 /usr/local/include/osmgpsmap//osm-gps-map.h
+	<osm-gps-map-osd.h>
+	<osm-gps-map-layer.h>
+	<osm-gps-map-track.h>
+	<osm-gps-map-point.h>
+	<osm-gps-map-image.h>
+	<osm-gps-map-source.h>
+	<osm-gps-map-widget.h>
+	<osm-gps-map-compat.h>
+
+1321823426 /usr/local/include/osmgpsmap//osm-gps-map-osd.h
+	<glib-object.h>
+
+1321823426 /usr/local/include/osmgpsmap//osm-gps-map-layer.h
+	<glib.h>
+	<glib-object.h>
+	<gdk/gdk.h>
+	"osm-gps-map-widget.h"
+
+1321823426 /usr/local/include/osmgpsmap//osm-gps-map-widget.h
+	<glib.h>
+	<glib-object.h>
+	<gtk/gtk.h>
+	<gdk-pixbuf/gdk-pixbuf.h>
+	"osm-gps-map-layer.h"
+	"osm-gps-map-point.h"
+	"osm-gps-map-track.h"
+	"osm-gps-map-image.h"
+
+1321823426 /usr/local/include/osmgpsmap//osm-gps-map-point.h
+	<glib.h>
+	<glib-object.h>
+
+1321823426 /usr/local/include/osmgpsmap//osm-gps-map-track.h
+	<glib.h>
+	<glib-object.h>
+	<gdk/gdk.h>
+	"osm-gps-map-point.h"
+
+1321823426 /usr/local/include/osmgpsmap//osm-gps-map-image.h
+	<glib-object.h>
+	<gdk/gdk.h>
+	"osm-gps-map-point.h"
+
+1321823426 /usr/local/include/osmgpsmap//osm-gps-map-source.h
+	<glib.h>
+
+1321823426 /usr/local/include/osmgpsmap//osm-gps-map-compat.h
+	"osm-gps-map-widget.h"
 
